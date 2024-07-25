@@ -1,0 +1,38 @@
+{
+  "name": "worker-client",
+  "version": "0.0.0",
+  "description": "Type-safe worker communication based on postMessage",
+  "keywords": [
+    "message",
+    "postmessage",
+    "serviceworker",
+    "structuredclone",
+    "webworker",
+    "worker"
+  ],
+  "homepage": "https://github.com/remcohaszing/worker-client#readme",
+  "bugs": "https://github.com/remcohaszing/worker-client/issues",
+  "repository": "remcohaszing/worker-client",
+  "funding": "https://github.com/sponsors/remcohaszing",
+  "license": "MIT",
+  "author": "Remco Haszing <remcohaszing@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": "./dist/worker-client.js",
+  "files": [],
+  "scripts": {
+    "prepack": "tsc --build",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@remcohaszing/eslint": "^11.0.0",
+    "@vitest/browser": "^3.0.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "playwright": "^1.0.0",
+    "prettier": "^3.0.0",
+    "remark-cli": "^12.0.0",
+    "remark-preset-remcohaszing": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.0.0"
+  }
+}

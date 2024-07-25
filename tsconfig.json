@@ -1,0 +1,9 @@
+{
+  "references": [{ "path": "./tsconfig.build.json" }],
+  "exclude": ["src"],
+  "compilerOptions": {
+    "module": "nodenext",
+    "noEmit": true,
+    "strict": true
+  }
+}
