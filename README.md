@@ -29,12 +29,6 @@ Type-safe worker communication based on `postMessage`.
   - [`RequestType.toImplementation<RequestType>`](#requesttypetoimplementationrequesttype)
   - [`NotificationType`](#notificationtype)
   - [`NotificationType.Any`](#notificationtypeany)
-  - [`Connection`](#connection-1)
-  - [`Connection.invert`](#connectioninvert-1)
-  - [`Connection.getOnRequestType`](#connectiongetonrequesttype-1)
-  - [`Connection.getSendRequestType`](#connectiongetsendrequesttype-1)
-  - [`Connection.getOnNotificationType`](#connectiongetonnotificationtype-1)
-  - [`Connection.getSendNotificationType`](#connectiongetsendnotificationtype-1)
 - [Compatibility](#compatibility)
 - [Sponsoring](#sponsoring)
 - [License](#license)
@@ -223,18 +217,6 @@ const four = await bridge.sum(1, three)
 ### `NotificationType`
 
 ### `NotificationType.Any`
-
-### `Connection`
-
-### `Connection.invert`
-
-### `Connection.getOnRequestType`
-
-### `Connection.getSendRequestType`
-
-### `Connection.getOnNotificationType`
-
-### `Connection.getSendNotificationType`
 
 ## Compatibility
 
