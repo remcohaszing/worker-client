@@ -22,7 +22,7 @@
   "files": [],
   "scripts": {
     "prepack": "tsc --build",
-    "test": "node --test"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@remcohaszing/eslint": "^11.0.0",
