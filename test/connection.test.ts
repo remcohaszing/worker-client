@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { type Connection, createConnection } from 'worker-client'
+import { Connection } from 'worker-client'
 
-type TestConnection = Connection.invert<import('./connection.worker.js').TestConnection>
+import { type TestConnection } from './connection.worker.js'
 
 let worker: Worker
 
@@ -12,7 +12,7 @@ afterEach(() => {
 describe('request', () => {
   test('success', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     const pet = await connection.sendRequest('getPet', 42)
 
@@ -25,7 +25,7 @@ describe('request', () => {
 
   test('throws error', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     async function two(): Promise<undefined> {
       await connection.sendRequest('throwError')
@@ -49,8 +49,8 @@ describe('request', () => {
         expect.stringMatching(/ at four /),
         expect.stringMatching(/ at three /),
         expect.stringMatching(/ at throwError /),
-        expect.stringMatching(/ at onMessage /),
-        expect.stringMatching(/ at Object.sendRequest /),
+        expect.stringMatching(/ at #onMessage /),
+        expect.stringMatching(/ at Connection.sendRequest /),
         expect.stringMatching(/ at async two /),
         expect.stringMatching(/ at async one /),
         expect.stringContaining(import.meta.url),
@@ -63,14 +63,14 @@ describe('request', () => {
 
   test('throws literal', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     await expect(connection.sendRequest('throwLiteral')).rejects.toThrow('literal')
   })
 
   test('not implemented', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     try {
       await connection.sendRequest('callCallback')
@@ -86,7 +86,7 @@ describe('request', () => {
 
   test('unserializable response', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     connection.onRequest('callback', () => Symbol('unclonable'))
 
@@ -97,7 +97,7 @@ describe('request', () => {
 
   test('unserializable error', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     connection.onRequest('callback', () => {
       throw Symbol('unclonable')
@@ -110,7 +110,7 @@ describe('request', () => {
 
   test('handle onRequest', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
     const callback = vi.fn(() => 'ok')
 
     connection.onRequest('callback', callback)
@@ -122,7 +122,7 @@ describe('request', () => {
 
   test('unknown response ID', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     const promise = new Promise((resolve, reject) => {
       globalThis.addEventListener(
@@ -140,7 +140,7 @@ describe('request', () => {
 
   test('dispose onRequest', () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
     const callback = vi.fn()
 
     connection.onRequest('callback', callback)[Symbol.dispose]()
@@ -151,7 +151,7 @@ describe('request', () => {
 
   test('duplicate callback', () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
     const callback = vi.fn()
     connection.onRequest('callback', callback)
 
@@ -162,7 +162,7 @@ describe('request', () => {
 
   test('disposed connection', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    const connection = createConnection<TestConnection>(worker)
+    const connection = Connection.invert<TestConnection>(worker)
     connection[Symbol.dispose]()
 
     expect(() => connection.onRequest('callback', vi.fn())).toThrowError(
@@ -177,7 +177,7 @@ describe('request', () => {
 describe('notification', () => {
   test('notification', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
 
     const email = await new Promise((resolve) => {
       connection.onNotification('receivedEmail', resolve)
@@ -194,7 +194,7 @@ describe('notification', () => {
 
   test('dispose onNotification', async () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    using connection = createConnection<TestConnection>(worker)
+    using connection = Connection.invert<TestConnection>(worker)
     const receivedEmail = vi.fn()
 
     await new Promise((resolve) => {
@@ -210,7 +210,7 @@ describe('notification', () => {
 
   test('disposed connection', () => {
     worker = new Worker(new URL('connection.worker.js', import.meta.url), { type: 'module' })
-    const connection = createConnection<TestConnection>(worker)
+    const connection = Connection.invert<TestConnection>(worker)
     connection[Symbol.dispose]()
 
     expect(() => connection.onNotification('receivedEmail', vi.fn())).toThrowError(

@@ -1,4 +1,4 @@
-import { createBridge, createConnection, type RequestType } from 'worker-client'
+import { Connection, createBridge, type RequestType } from 'worker-client'
 
 const workerImplementation = {
   greet(name: string) {
@@ -19,9 +19,11 @@ const workerImplementation = {
 
 type MainImplementation = RequestType<'shouldUppercase', (question: string) => boolean>
 
-export const connection = createConnection<
+const connection = new Connection<
   RequestType.fromObject<typeof workerImplementation>,
   MainImplementation
 >(globalThis)
+
+export type WorkerConnection = typeof connection
 
 const bridge = createBridge(connection, workerImplementation)

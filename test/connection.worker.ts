@@ -1,4 +1,4 @@
-import { createConnection, type NotificationType, type RequestType } from 'worker-client'
+import { Connection, type NotificationType, type RequestType } from 'worker-client'
 
 interface Pet {
   id: number
@@ -33,7 +33,7 @@ type SendTestNotificationType =
   | NotificationType<'receivedEmail', [email: IncomingEmail]>
   | NotificationType<'void', []>
 
-const connection = createConnection<
+const connection = new Connection<
   OnTestRequestType,
   SendRequestType,
   OnTestNotificationType,

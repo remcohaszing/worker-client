@@ -1,9 +1,5 @@
-import {
-  type AnyFunction,
-  type Connection,
-  type NotificationType,
-  type RequestType
-} from './types.js'
+import { type Connection } from './connection.js'
+import { type AnyFunction, type NotificationType, type RequestType } from './types.js'
 import { ensureFunctionName } from './utils.js'
 
 /**

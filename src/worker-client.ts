@@ -1,3 +1,3 @@
 export { createBridge } from './bridge.js'
-export { createConnection } from './connection.js'
-export { type Connection, type NotificationType, type RequestType } from './types.js'
+export { Connection } from './connection.js'
+export { type NotificationType, type RequestType } from './types.js'
