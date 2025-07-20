@@ -19,7 +19,10 @@
   "sideEffects": false,
   "type": "module",
   "exports": "./dist/worker-client.js",
-  "files": [],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prepack": "tsc --build",
     "test": "vitest run"
