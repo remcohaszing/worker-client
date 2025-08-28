@@ -1,7 +1,7 @@
+import type { TestConnection } from './connection.worker.js'
+
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { Connection } from 'worker-client'
-
-import { type TestConnection } from './connection.worker.js'
 
 let worker: Worker
 

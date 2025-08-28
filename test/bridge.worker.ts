@@ -1,4 +1,6 @@
-import { Connection, createBridge, type RequestType } from 'worker-client'
+import type { RequestType } from 'worker-client'
+
+import { Connection, createBridge } from 'worker-client'
 
 const workerImplementation = {
   greet(name: string) {

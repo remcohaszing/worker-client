@@ -1,4 +1,6 @@
-import { Connection, type NotificationType, type RequestType } from 'worker-client'
+import type { NotificationType, RequestType } from 'worker-client'
+
+import { Connection } from 'worker-client'
 
 interface Pet {
   id: number

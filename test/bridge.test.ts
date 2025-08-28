@@ -1,7 +1,9 @@
-import { afterEach, expect, test, vi } from 'vitest'
-import { Connection, createBridge, type RequestType } from 'worker-client'
+import type { RequestType } from 'worker-client'
 
-import { type WorkerConnection } from './bridge.worker.js'
+import type { WorkerConnection } from './bridge.worker.js'
+
+import { afterEach, expect, test, vi } from 'vitest'
+import { Connection, createBridge } from 'worker-client'
 
 let worker: Worker
 

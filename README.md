@@ -54,7 +54,9 @@ a worker:
 ```ts
 // File: worker.ts
 
-import { createConnection, type NotificationType, type RequestType } from 'worker-client'
+import type { NotificationType, RequestType } from 'worker-client'
+
+import { createConnection } from 'worker-client'
 
 // This type defines which request listeners the worker will implement.
 type ToWorkerRequestType =
@@ -105,14 +107,11 @@ In the main thread you can implement the inverse and send requests and notificat
 ```ts
 // File: main.ts
 
-import {
-  type Connection,
-  createConnection,
-  type NotificationType,
-  type RequestType
-} from 'worker-client'
+import type { Connection, NotificationType, RequestType } from 'worker-client'
 
-import { type WorkerConnection } from './worker.ts'
+import type { WorkerConnection } from './worker.ts'
+
+import { createConnection } from 'worker-client'
 
 // Invert the connection type
 type MainConnection = Connection.invert<WorkerConnection>
@@ -135,12 +134,9 @@ this, you can use [`creatBridge`](#createbridge).
 ```ts
 // File: worker.ts
 
-import {
-  createBridge,
-  createConnection,
-  type NotificationType,
-  type RequestType
-} from 'worker-client'
+import type { NotificationType, RequestType } from 'worker-client'
+
+import { createBridge, createConnection } from 'worker-client'
 
 const implementation = {
   substract(a: number, b: number) {
@@ -163,14 +159,11 @@ export type WorkerConnection = typeof connection
 ```ts
 // File: main.ts
 
-import {
-  type Connection,
-  createConnection,
-  type NotificationType,
-  type RequestType
-} from 'worker-client'
+import type { Connection, NotificationType, RequestType } from 'worker-client'
 
-import { type WorkerConnection } from './worker.ts'
+import type { WorkerConnection } from './worker.ts'
+
+import { createConnection } from 'worker-client'
 
 // Invert the connection type
 type MainConnection = Connection.invert<WorkerConnection>

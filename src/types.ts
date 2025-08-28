@@ -27,7 +27,7 @@ export type AnyFunction = (...params: any[]) => unknown
  * Make a value synchronous or asynchronous.
  *
  * @template Value
- * The value to make promisable.
+ *   The value to make promisable.
  */
 export type Promisable<Value> = PromiseLike<Value> | Value
 
@@ -70,9 +70,9 @@ export interface EventTarget {
  * A type used to register notifications.
  *
  * @template Name
- * The name of the notification type.
+ *   The name of the notification type.
  * @template Parameters
- * Parameters that are sent from the sender to the receiver.
+ *   Parameters that are sent from the sender to the receiver.
  */
 export interface NotificationType<Name extends string, Parameters extends unknown[]> {
   /**
@@ -100,10 +100,10 @@ export interface NotificationType<Name extends string, Parameters extends unknow
  * A type used to register requests.
  *
  * @template Name
- * The name of the request type.
+ *   The name of the request type.
  * @template Fn
- * The function signature from which to construct a request type. The function arguments are sent to
- * the receiver. The function return type is sent back to the client asynchronously.
+ *   The function signature from which to construct a request type. The function arguments are sent
+ *   to the receiver. The function return type is sent back to the client asynchronously.
  */
 export interface RequestType<Name extends string, Fn extends AnyFunction> {
   /**
@@ -131,7 +131,7 @@ export interface RequestType<Name extends string, Fn extends AnyFunction> {
  * Get the name of a notification type or request type.
  *
  * @template Type
- * The type of which to get the name.
+ *   The type of which to get the name.
  */
 export type GetName<Type extends NotificationType.Any | RequestType.Any> = Type[symbol.name]
 
@@ -139,9 +139,9 @@ export type GetName<Type extends NotificationType.Any | RequestType.Any> = Type[
  * Extract a notification or request type from a union by its name.
  *
  * @template Type
- * The union of notification or request types from which to extract one by its name.
+ *   The union of notification or request types from which to extract one by its name.
  * @template Name
- * The name of the notification or request type to extract.
+ *   The name of the notification or request type to extract.
  */
 export type ByName<
   Type extends NotificationType.Any | RequestType.Any,
@@ -197,7 +197,7 @@ export namespace RequestType {
    * ```
    *
    * @template Type
-   * The object type to create a request type from.
+   *   The object type to create a request type from.
    */
   export type fromObject<Type extends object> = {
     [Key in keyof Type]: Key extends string
@@ -213,7 +213,7 @@ export namespace RequestType {
    * Regardless of the implementation, bridge methods always return a promise.
    *
    * @template Type
-   * The request type to create a bridge type from.
+   *   The request type to create a bridge type from.
    */
   export type toBridge<Type extends RequestType.Any> = {
     [Key in GetName<Type>]: (...params: Params<Type, Key>) => Promise<ReturnValue<Type, Key>>

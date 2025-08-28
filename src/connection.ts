@@ -1,12 +1,13 @@
-import {
-  type AnyFunction,
-  type EventTarget,
-  type GetName,
-  type NotificationType,
-  type Params,
-  type RequestType,
-  type ReturnValue
+import type {
+  AnyFunction,
+  EventTarget,
+  GetName,
+  NotificationType,
+  Params,
+  RequestType,
+  ReturnValue
 } from './types.js'
+
 import { ensureFunctionName } from './utils.js'
 
 const enum MessageType {
@@ -82,7 +83,7 @@ type Data = Notification | Request | Response
  * An object what can resolve or reject a promise.
  *
  * @template Value
- * The value to resolve with.
+ *   The value to resolve with.
  */
 interface Resolver<Value> {
   /**
@@ -102,13 +103,13 @@ interface Resolver<Value> {
  * The connection is disposable. If it’s disposed, the event listener on the target is removed.
  *
  * @template OnRequestType
- * The type of the requests the connection will expect.
+ *   The type of the requests the connection will expect.
  * @template SendRequestType
- * The type of the requests the connection will send.
+ *   The type of the requests the connection will send.
  * @template OnNotificationType
- * The type of the notifications the connection will expect.
+ *   The type of the notifications the connection will expect.
  * @template SendNotificationType
- * The type of the notifications the connection will send.
+ *   The type of the notifications the connection will send.
  */
 export class Connection<
   OnRequestType extends RequestType.Any = never,
@@ -366,7 +367,7 @@ export namespace Connection {
    * Get the `OnRequestType` of a connection.
    *
    * @template Conn
-   * The connection to get the `OnRequestType` for.
+   *   The connection to get the `OnRequestType` for.
    */
   export type getOnRequestType<Conn> =
     Conn extends Connection<infer OnRequestType, any, any, any> ? OnRequestType : never
@@ -375,7 +376,7 @@ export namespace Connection {
    * Get the `SendRequestType` of a connection.
    *
    * @template Conn
-   * The connection to get the `SendRequestType` for.
+   *   The connection to get the `SendRequestType` for.
    */
   export type getSendRequestType<Conn> =
     Conn extends Connection<any, infer SendRequestType, any, any> ? SendRequestType : never
@@ -384,7 +385,7 @@ export namespace Connection {
    * Get the `OnNotificationType` of a connection.
    *
    * @template Conn
-   * The connection to get the `OnNotificationType` for.
+   *   The connection to get the `OnNotificationType` for.
    */
   export type getOnNotificationType<Conn> =
     Conn extends Connection<any, any, infer OnNotificationType, any> ? OnNotificationType : never
@@ -393,7 +394,7 @@ export namespace Connection {
    * Get the `SendNotificationType` of a connection.
    *
    * @template Conn
-   * The connection to get the `SendNotificationType` for.
+   *   The connection to get the `SendNotificationType` for.
    */
   export type getSendNotificationType<Conn> =
     Conn extends Connection<any, any, any, infer SendNotificationType>

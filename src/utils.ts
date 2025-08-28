@@ -1,10 +1,10 @@
-import { type AnyFunction } from './types.js'
+import type { AnyFunction } from './types.js'
 
 /**
  * Ensure a function has a name. The name is only assigned the function doesn’t already have a name.
  *
  * @template Fn
- * The type of the function.
+ *   The type of the function.
  * @param fn
  *   The function that should have a name.
  * @param name
